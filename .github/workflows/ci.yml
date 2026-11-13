@@ -1,0 +1,51 @@
+# 에이전트 스킬 레포 CI — 모델 호출 없이: 스킬 규격(Agent Skills 표준 검증기) + 플러그인 매니페스트 + 번들 스크립트 테스트.
+# 실측 평가(발동·효과·Codex)는 공개 전에 하네스가 따로 돌리고 README 검증 표에 남긴다.
+name: ci
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: "17 3 * * 1"   # 매주 월요일 — 런타임·검증기가 바뀌어 깨지지 않았는지 정기 확인
+  workflow_dispatch:
+jobs:
+  scripts:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ["3.10", "3.12", "3.14"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          python-version: ${{ matrix.python }}
+      - run: uv sync --locked
+      - run: uv run pytest -q
+      - name: every bundled script answers --help
+        run: |
+          for f in skills/*/scripts/*.py; do
+            case "$(basename "$f")" in _*) continue ;; esac
+            uv run python "$f" --help > /dev/null
+          done
+  spec:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+      - name: Agent Skills spec (skills-ref, pinned)
+        run: |
+          for d in skills/*/; do
+            uvx --from "git+https://github.com/agentskills/agentskills@83021e2be457a9b6679148719c1f6074f0ad975e#subdirectory=skills-ref" \
+              skills-ref validate "$d"
+          done
+      - name: plugin manifests are valid JSON with matching names
+        run: |
+          python3 - <<'PY'
+          import json, pathlib
+          plugin = json.loads(pathlib.Path(".claude-plugin/plugin.json").read_text())
+          market = json.loads(pathlib.Path(".claude-plugin/marketplace.json").read_text())
+          skills = [p.name for p in pathlib.Path("skills").iterdir() if p.is_dir()]
+          assert skills == [plugin["name"]], (skills, plugin["name"])
+          assert [p["name"] for p in market["plugins"]] == [plugin["name"]]
+          print("manifests ok:", plugin["name"], plugin["version"])
+          PY
