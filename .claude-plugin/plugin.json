@@ -1,0 +1,10 @@
+{
+  "name": "config-edit-guard",
+  "version": "0.1.0",
+  "description": "Edits one config value by its byte span and verifies the edit on a semantic layer and a text layer.",
+  "author": {"name": "LeeGyeongPil"},
+  "license": "MIT",
+  "homepage": "https://github.com/LeeGyeongPil/config-edit-guard",
+  "repository": "https://github.com/LeeGyeongPil/config-edit-guard",
+  "keywords": ["yaml", "json", "toml", "xml", "config", "agent-skill"]
+}

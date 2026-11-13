@@ -1,0 +1,12 @@
+# service config
+defaults: &defaults
+  timeout: 30
+  retries: 5
+service:
+  <<: *defaults
+  name: 'gateway'
+  enabled: no        # YAML 1.1 bool trap
+  mode: 0755
+  version: 1.10
+  port: 8080
+  tags: [a, b]

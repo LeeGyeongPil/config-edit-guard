@@ -1,0 +1,12 @@
+# service config
+defaults: &defaults
+  timeout: 30   # seconds
+  retries: 3
+service:
+  <<: *defaults
+  name: 'api'
+  enabled: no        # YAML 1.1 bool trap
+  mode: 0755
+  version: 1.10
+  port: 8080
+  tags: [a, b]

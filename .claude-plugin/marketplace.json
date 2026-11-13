@@ -1,0 +1,12 @@
+{
+  "name": "config-edit-guard-skill",
+  "owner": {"name": "LeeGyeongPil"},
+  "description": "Agent skill that edits one config value by its byte span and verifies config edits.",
+  "plugins": [
+    {
+      "name": "config-edit-guard",
+      "source": "./",
+      "description": "Replaces only the value's byte span in YAML, JSON/JSONC, TOML, XML and Markdown front matter, then verifies the edit on two layers."
+    }
+  ]
+}

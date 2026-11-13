@@ -1,0 +1,16 @@
+# deployment for the api
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api
+spec:
+  replicas: 2
+  template:
+    spec:
+      containers:
+        - name: api
+          image: registry.example.com/api:1.4.1   # pinned
+          ports:
+            - containerPort: 8080
+        - name: sidecar
+          image: registry.example.com/sidecar:2.0.0

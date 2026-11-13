@@ -1,0 +1,6 @@
+server:
+  host: example.com
+  port: 8080
+  tls: true
+  extra: 1
+  port: 9090

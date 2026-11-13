@@ -1,0 +1,9 @@
+# package metadata
+[project]
+name = "api"   # display name
+version = "0.3.0"   # release
+dependencies = [ "requests>=2",
+  "rich" ]
+
+[tool.ruff]
+line-length = 88

@@ -1,0 +1,8 @@
+{
+  // editor basics
+  "editor.fontSize": 14, /* keep */
+  "http.proxy": "https://proxy.example.com:8080",
+  "files.exclude": {
+    "**/.git": true,
+  },
+}

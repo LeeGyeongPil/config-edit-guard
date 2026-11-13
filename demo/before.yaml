@@ -1,0 +1,11 @@
+# service config
+defaults: &defaults
+  timeout: 30   # seconds
+  retries: 3
+
+service:
+  <<: *defaults
+  name: 'api'
+  enabled: "no"      # quoted on purpose
+  mode: "0755"
+  tags: [a, b]

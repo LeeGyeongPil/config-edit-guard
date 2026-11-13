@@ -1,0 +1,3 @@
+# shown to the user
+country: DE   # ISO 3166-1 alpha-2
+language: en

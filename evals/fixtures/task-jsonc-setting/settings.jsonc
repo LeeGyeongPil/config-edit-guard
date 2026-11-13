@@ -1,0 +1,9 @@
+{
+  // editor basics
+  "editor.fontSize": 14, /* keep */
+  "http.proxy": "https://proxy.example.com:8080",
+  "workbench.colorTheme": "Default Dark Modern",
+  "files.exclude": {
+    "**/.git": true,
+  },
+}
