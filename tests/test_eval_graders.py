@@ -115,6 +115,8 @@ def matches(pattern: str, kind: str, work: Path, rel, trace: str) -> bool:
 
 @pytest.mark.parametrize("task", sorted(TASK_COMMANDS))
 def test_every_regex_grader_matches_the_real_script_output(task, tmp_path):
+    if task == "task-toml-version" and sys.version_info < (3, 11):
+        pytest.skip("TOML support needs Python 3.11+ (tomllib)")
     work, trace = run_task(task, tmp_path, SCRIPT)
     graders = grader_regexes(EVALS / task)
     assert graders

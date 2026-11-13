@@ -14,7 +14,7 @@ def scripts():
 
 
 def test_all_imports_are_standard_library_or_bundled():
-    stdlib = set(sys.stdlib_module_names)
+    stdlib = set(sys.stdlib_module_names) | {"tomllib"}  # tomllib is stdlib from 3.11; imported lazily
     for path in scripts():
         for node in ast.walk(ast.parse(path.read_text(encoding="utf-8"))):
             names = []
