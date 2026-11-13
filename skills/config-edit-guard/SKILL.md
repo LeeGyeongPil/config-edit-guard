@@ -4,7 +4,7 @@ description: Edits one value in YAML, JSON/JSONC, TOML, XML (.csproj, pom.xml) o
 license: MIT
 compatibility: Python 3.10+ (standard library only; TOML needs 3.11+). No network access.
 metadata:
-  version: "0.1.0"
+  version: "0.1.1"
 ---
 
 # Config edit guard

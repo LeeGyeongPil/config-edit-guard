@@ -1,6 +1,6 @@
 {
   "name": "config-edit-guard",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Edits one config value by its byte span and verifies the edit on a semantic layer and a text layer.",
   "author": {"name": "LeeGyeongPil"},
   "license": "MIT",

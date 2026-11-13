@@ -1,6 +1,6 @@
 [project]
 name = "config-edit-guard"
-version = "0.1.0"
+version = "0.1.1"
 description = "Agent skill that edits one config value by its byte span and verifies the edit on a semantic and a text layer."
 license = { text = "MIT" }
 requires-python = ">=3.10"
