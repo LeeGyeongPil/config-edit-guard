@@ -51,14 +51,7 @@ cp -r config-edit-guard/skills/config-edit-guard ~/.claude/skills/
 
 For a single project, copy it to `.claude/skills/` inside that project instead.
 
-**Other agents that read the Agent Skills format**: copy the same `skills/config-edit-guard` folder into that agent's skills folder.
-
-**Codex CLI** (checked with `codex-cli 0.154.0`): copy the folder into `.agents/skills/` of your project.
-
-```bash
-mkdir -p .agents/skills
-cp -r config-edit-guard/skills/config-edit-guard .agents/skills/
-```
+**Other agents that follow the Agent Skills standard**: copy the same `skills/config-edit-guard` folder into that agent's skills folder. These agents have not been tested.
 
 Measured results (Claude Code, `sonnet`, 3 runs per case):
 
@@ -66,14 +59,14 @@ Measured results (Claude Code, `sonnet`, 3 runs per case):
 | Check | Result |
 |---|---|
 | Triggers when it should | 12/12 |
-| Stays quiet when it should not | 10/11 |
+| Stays quiet when it should not | 11/11 |
 | Tasks solved with the skill | 6/6 |
 | Tasks solved without it (baseline) | 0/6 |
-| Mean score gain (Δ) | +0.57 |
+| Mean score gain (Δ) | +0.55 |
 | Tasks that catch a broken script | 6/6 |
-| Codex CLI | 7/7 tasks · verified |
+| Codex CLI | not verified |
 
-Measured 2026-11-14 with Claude Code 2.1.322 · sonnet · 3 runs per case · codex-cli 0.154.0
+Measured 2026-11-24 with Claude Code 2.1.322 · sonnet · 3 runs per case · codex-cli 0.154.0
 <!-- skill-eval:end -->
 
 ## Quick start
@@ -247,7 +240,7 @@ python3 skills/config-edit-guard/scripts/config_edit_guard.py --lang en verify -
 
 ## Evaluation
 
-The repository contains an evaluation set in `evals/` (trigger cases, near-miss and far-miss cases that must not trigger the skill, and task cases with fixture files) and a test suite. The measured table is in the Install section above: 12 of 12 trigger cases fired, 1 of 11 must-not-trigger cases fired (a yamllint indentation-fix request), 6 of 6 tasks passed with the skill against 0 of 6 without it, and all 7 Codex CLI task cases passed (`sonnet`, 3 runs per case, 2026-11-14). The cases are small and written for this skill, so read them as a smoke test, not a benchmark.
+The repository contains an evaluation set in `evals/` (trigger cases, near-miss and far-miss cases that must not trigger the skill, and task cases with fixture files) and a test suite. The measured table is in the Install section above: 12 of 12 trigger cases fired, 0 of 11 must-not-trigger cases fired, and 6 of 6 tasks passed with the skill against 0 of 6 without it (`sonnet`, 3 runs per case, 2026-11-24). The cases are small and written for this skill, so read them as a smoke test, not a benchmark.
 
 ## Alternatives
 

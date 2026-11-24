@@ -51,14 +51,7 @@ cp -r config-edit-guard/skills/config-edit-guard ~/.claude/skills/
 
 한 프로젝트에서만 쓰려면 그 프로젝트의 `.claude/skills/` 로 복사하세요.
 
-**Agent Skills 형식을 읽는 다른 에이전트**: 같은 `skills/config-edit-guard` 폴더를 그 에이전트의 스킬 폴더에 복사하세요.
-
-**Codex CLI** (`codex-cli 0.154.0` 에서 확인): 프로젝트의 `.agents/skills/` 에 폴더를 복사하세요.
-
-```bash
-mkdir -p .agents/skills
-cp -r config-edit-guard/skills/config-edit-guard .agents/skills/
-```
+**Agent Skills 표준을 따르는 다른 에이전트**: 같은 `skills/config-edit-guard` 폴더를 그 에이전트의 스킬 폴더에 복사하세요. 이런 에이전트에서는 시험하지 않았습니다.
 
 실측 결과(Claude Code, `sonnet`, 케이스마다 3회):
 
@@ -66,14 +59,14 @@ cp -r config-edit-guard/skills/config-edit-guard .agents/skills/
 | 확인 | 결과 |
 |---|---|
 | 필요할 때 불림 | 12/12 |
-| 필요 없을 때 안 불림 | 10/11 |
+| 필요 없을 때 안 불림 | 11/11 |
 | 스킬로 푼 작업 | 6/6 |
 | 스킬 없이 푼 작업(기준선) | 0/6 |
-| 평균 점수 차이(Δ) | +0.57 |
+| 평균 점수 차이(Δ) | +0.55 |
 | 가짜 스크립트를 잡아낸 비율 | 6/6 |
-| Codex CLI | 작업 7/7 통과 · 확인됨 |
+| Codex CLI | 미검증 |
 
-Claude Code 2.1.322 · sonnet · 케이스마다 3회 · 2026-11-14 측정 · codex-cli 0.154.0
+Claude Code 2.1.322 · sonnet · 케이스마다 3회 · 2026-11-24 측정 · codex-cli 0.154.0
 <!-- skill-eval:end -->
 
 ## 빠르게 시작하기
@@ -247,7 +240,7 @@ python3 skills/config-edit-guard/scripts/config_edit_guard.py --lang ko verify -
 
 ## 평가
 
-저장소의 `evals/` 에는 평가 세트(발동 케이스, 발동하면 안 되는 근접·원거리 케이스, 픽스처 파일이 있는 작업 케이스)와 테스트가 있습니다. 실측 표는 위 설치 절에 있습니다. 발동 케이스 12개 모두 발동했고, 발동하면 안 되는 케이스 11개 중 1개(yamllint 들여쓰기 수정 요청)가 발동했으며, 스킬을 쓴 작업은 6개 중 6개 통과, 스킬 없이는 6개 중 0개 통과, Codex CLI 작업 케이스 7개는 모두 통과했습니다(`sonnet`, 케이스마다 3회, 2026-11-14). 케이스는 작고 이 스킬에 맞춰 쓴 것이라 벤치마크가 아니라 스모크 테스트로 보세요.
+저장소의 `evals/` 에는 평가 세트(발동 케이스, 발동하면 안 되는 근접·원거리 케이스, 픽스처 파일이 있는 작업 케이스)와 테스트가 있습니다. 실측 표는 위 설치 절에 있습니다. 발동 케이스 12개 모두 발동했고, 발동하면 안 되는 케이스 11개는 모두 발동하지 않았고, 스킬을 쓴 작업은 6개 중 6개 통과, 스킬 없이는 6개 중 0개 통과했습니다(`sonnet`, 케이스마다 3회, 2026-11-24). 케이스는 작고 이 스킬에 맞춰 쓴 것이라 벤치마크가 아니라 스모크 테스트로 보세요.
 
 ## 대안
 
