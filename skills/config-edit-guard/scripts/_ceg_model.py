@@ -12,7 +12,7 @@ import re
 from dataclasses import dataclass, field
 from typing import Any, Optional
 
-VERSION = "0.1.1"
+VERSION = "0.1.2"
 TOOL = "config-edit-guard"
 
 LINE_BREAK_RE = re.compile(r"\r\n|\n|\r")
@@ -56,6 +56,7 @@ class Node:
     self_closing: bool = False  # XML: <a/>
     entity_text: bool = False  # XML: text holds entities or CDATA
     spath: Optional[tuple] = None  # YAML: real path, set while flattening
+    in_flow: bool = False  # YAML: scalar sits inside a one-line [..] or {..}
 
 
 @dataclass
