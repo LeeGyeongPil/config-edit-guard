@@ -206,7 +206,7 @@ Add `--json` to print the report as JSON, or `--report FILE.json` to also save i
 | `eol_changed`, `final_newline_changed`, `bom_changed` | line endings, final newline, byte order mark | yes |
 | `before_sha256`, `after_sha256` | hashes of the two files | no |
 
-`--allow comments,order,quotes,blank_lines,eol` switches off only the named checks. `--text-only` skips the semantic layer. `set --type auto|str|int|float|bool|null` chooses the value type (`auto` keeps the old type; a non-number written to a number exits 2 with `E_TYPE`, and `--type str` overrides it). `set --dry-run` checks without writing.
+`--allow comments,order,quotes,blank_lines,eol` switches off only the named checks. `--text-only` skips the semantic layer. `set --type auto|str|int|float|bool|null` chooses the value type (`auto` keeps the old type; a non-number written to a number exits 2 with `E_TYPE`, and `--type str` overrides it). `set --dry-run` checks without writing. When `set` refuses to save, the last line says the file was not changed; for a YAML 1.1 risk such as `0755` it adds a hint to rerun with `--type str`.
 
 | Exit code | Meaning |
 |---|---|

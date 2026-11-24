@@ -332,7 +332,9 @@ def cmd_set(args, lang: str, argv: list) -> int:
         report["status"] = "rejected"
         human.append(t("set.rejected", file=args.file))
         human.extend(_verify_lines(lang, result))
-        human.append(t("verify.hint"))
+        if "yaml11_risky" in result["violations"] and args.type != "str":
+            human.append(t("set.rejected_hint_str", file=args.file))
+        human.append(t("set.rejected_hint", file=args.file))
         _emit(report, human, args, lang)
         return EXIT_UNINTENDED
     if args.dry_run:

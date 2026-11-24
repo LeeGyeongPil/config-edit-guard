@@ -4,7 +4,7 @@ description: Edits one value in YAML, JSON/JSONC, TOML, XML (.csproj, pom.xml) o
 license: MIT
 compatibility: Python 3.10+ (standard library only; TOML needs 3.11+). No network access.
 metadata:
-  version: "0.1.2"
+  version: "0.1.3"
 ---
 
 # Config edit guard
@@ -28,7 +28,7 @@ Dots between keys, `[0]` for list items, double quotes around a key that contain
 
 ## Reading the result
 
-- `set` prints one line per edit. It reports `quote_added` and `quote_reason` when it had to quote a value (`country: NO` is written as `country: "NO"` because YAML 1.1 loaders read `NO` as false). Exit 1 means the self-check refused to save: show the findings and do not try another way of writing the file.
+- `set` prints one line per edit. It reports `quote_added` and `quote_reason` when it had to quote a value (`country: NO` is written as `country: "NO"` because YAML 1.1 loaders read `NO` as false). Exit 1 means the self-check refused to save: show the findings and do not try another way of writing the file. If the findings show a YAML 1.1 risk and the value is meant as a string, the output suggests rerunning with `--type str`.
 - `verify` exits 0 when nothing unintended changed and 1 when it found something. Show the findings to the user as printed. `collateral_paths` are real unintended changes, `unchanged_expected` means an expected path did not change, `lost_comments` come with line numbers. `via_alias` lists paths that changed only because an anchored value they merge or alias was edited; that is normal propagation, not an error, and you can say so.
 - After exit 1 from `verify`, restore the original from the `.orig` copy and make a smaller edit, or tell the user what the script found. Do not silence a finding with `--allow` unless the user said that kind of change is fine (`--allow comments,order,quotes,blank_lines,eol`).
 - Exit 2 is an input problem. Show the error line as printed; it names the code and says how to fix the input. The file is never changed on exit 2.

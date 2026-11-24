@@ -260,6 +260,8 @@ EN = {
     "v.eol_changed": "  line endings changed: {before} -> {after}",
     "v.final_newline_changed": "  the final newline was added or removed",
     "v.bom_changed": "  the byte order mark was added or removed",
+    "set.rejected_hint": "{file} was not changed. Fix the value, or edit the file by hand and then run verify.",
+    "set.rejected_hint_str": "If the value is meant to be a string, run the same command again with --type str; it is saved quoted.",
     "verify.hint": "Revert the unintended changes (or show this report to the user), then run verify again.",
     "warn.xml_multiple": "warning: {name} matches {count} sibling elements; the first was used, add [n] to choose",
 }
@@ -503,6 +505,8 @@ KO = {
     "v.eol_changed": "  줄바꿈이 바뀌었습니다(line endings): {before} -> {after}",
     "v.final_newline_changed": "  마지막 줄바꿈이 추가되거나 사라졌습니다",
     "v.bom_changed": "  바이트 순서 표시(BOM)가 추가되거나 사라졌습니다",
+    "set.rejected_hint": "{file} 은(는) 바뀌지 않았습니다. 값을 고치거나, 파일을 손으로 수정한 뒤 verify 로 확인하세요.",
+    "set.rejected_hint_str": "문자열로 쓰려는 값이면 같은 명령에 --type str 을 붙여 다시 실행하세요. 따옴표를 붙여 저장합니다.",
     "verify.hint": "의도하지 않은 변경은 되돌리거나(또는 이 보고서를 사용자에게 보여 주고) verify 를 다시 실행하세요.",
     "warn.xml_multiple": "경고: {name} 이(가) 형제 요소 {count}개와 일치해 첫 번째를 썼습니다. [n] 을 붙여 고르세요",
 }

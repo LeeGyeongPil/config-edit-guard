@@ -206,7 +206,7 @@ rm -rf try && cp -r demo try && python3 skills/config-edit-guard/scripts/config_
 | `eol_changed`, `final_newline_changed`, `bom_changed` | 줄 끝, 마지막 줄바꿈, BOM | 예 |
 | `before_sha256`, `after_sha256` | 두 파일의 해시 | 아니오 |
 
-`--allow comments,order,quotes,blank_lines,eol` 은 이름 붙인 검사만 끕니다. `--text-only` 는 의미 층을 건너뜁니다. `set --type auto|str|int|float|bool|null` 은 값 타입을 정합니다(`auto` 는 기존 타입을 유지하고, 숫자 자리에 숫자가 아닌 값을 쓰면 `E_TYPE` 으로 종료 코드 2 이며 `--type str` 로 덮어씁니다). `set --dry-run` 은 쓰지 않고 검사만 합니다.
+`--allow comments,order,quotes,blank_lines,eol` 은 이름 붙인 검사만 끕니다. `--text-only` 는 의미 층을 건너뜁니다. `set --type auto|str|int|float|bool|null` 은 값 타입을 정합니다(`auto` 는 기존 타입을 유지하고, 숫자 자리에 숫자가 아닌 값을 쓰면 `E_TYPE` 으로 종료 코드 2 이며 `--type str` 로 덮어씁니다). `set --dry-run` 은 쓰지 않고 검사만 합니다. `set` 이 저장을 거부하면 마지막 줄에 파일이 바뀌지 않았다는 안내가 나오고, `0755` 같은 YAML 1.1 위험이면 `--type str` 로 다시 실행하라는 안내가 더해집니다.
 
 | 종료 코드 | 뜻 |
 |---|---|

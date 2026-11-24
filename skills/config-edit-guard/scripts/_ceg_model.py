@@ -12,7 +12,7 @@ import re
 from dataclasses import dataclass, field
 from typing import Any, Optional
 
-VERSION = "0.1.2"
+VERSION = "0.1.3"
 TOOL = "config-edit-guard"
 
 LINE_BREAK_RE = re.compile(r"\r\n|\n|\r")

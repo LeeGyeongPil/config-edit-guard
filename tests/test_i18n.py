@@ -191,3 +191,16 @@ def test_argparse_error_translation_covers_known_shapes():
 
 def test_scripts_directory_has_no_stray_translation_files():
     assert not list(Path(SCRIPTS).glob("*.po")) and not list(Path(SCRIPTS).glob("*.mo"))
+
+
+def test_set_rejection_gives_set_specific_next_steps(tmp_path):
+    f = write(tmp_path, "n.yaml", "k: 1\n")
+    for lang, hint in (("en", "was not changed"), ("ko", "바뀌지 않았습니다")):
+        code, out, _ = cli("--lang", lang, "set", str(f), "k", "0755")
+        assert code == 1
+        lines = out.strip().splitlines()
+        assert hint in lines[-1] and "--type str" in lines[-2]
+        assert "Revert" not in out and "되돌리" not in out and "verify again" not in out
+        if lang == "en":
+            assert not re.search("[가-힣]", out)
+        assert f.read_text() == "k: 1\n"
