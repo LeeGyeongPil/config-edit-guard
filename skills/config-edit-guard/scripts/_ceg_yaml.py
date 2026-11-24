@@ -610,10 +610,10 @@ class _Scanner:
                         val, i = self._flow_item(li, i, depth, key_ok=False)
                     else:
                         o = self.off(li, i)
-                        val = Node("scalar", o, o, style="plain", value=None, raw="", empty=True)
+                        val = Node("scalar", o, o, style="plain", value=None, raw="", empty=True, in_flow=True)
                 else:
                     o = self.off(li, i)
-                    val = Node("scalar", o, o, style="plain", value=None, raw="", empty=True)
+                    val = Node("scalar", o, o, style="plain", value=None, raw="", empty=True, in_flow=True)
                 val.key = key_text
                 val.key_node = kn
                 node.children.append(val)
@@ -684,7 +684,8 @@ class _Scanner:
         raw = s[i:j].rstrip()
         if raw == "":
             raise self.err("e.parse.yaml.flow_expected", li, i, ch=s[i] if i < n else "")
-        node = Node("scalar", self.off(li, i), self.off(li, i + len(raw)), style="plain", raw=raw, value=raw)
+        node = Node("scalar", self.off(li, i), self.off(li, i + len(raw)), style="plain", raw=raw, value=raw,
+                    in_flow=True)
         return node, i + len(raw)
 
 

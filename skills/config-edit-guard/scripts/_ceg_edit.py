@@ -49,11 +49,13 @@ def _json_dq(value: str) -> str:
     return out.replace("\x7f", "\\x7f").replace("\x85", "\\N").replace("\u2028", "\\L").replace("\u2029", "\\P")
 
 
-def yaml_quote_reason(v: str) -> Optional[str]:
+def yaml_quote_reason(v: str, in_flow: bool = False) -> Optional[str]:
     """Why a plain scalar ``v`` cannot be written unquoted without changing its meaning."""
     if v == "" or v != v.strip():
         return "indicator"
     if _CONTROL.search(v):
+        return "indicator"
+    if in_flow and any(ch in v for ch in ",[]{}"):
         return "indicator"
     c = v[0]
     if c in "-?:" and (len(v) == 1 or v[1] in " \t"):
@@ -79,14 +81,14 @@ def yaml_quote_reason(v: str) -> Optional[str]:
     return None
 
 
-def render_yaml_str(v: str, style: str) -> Rendered:
+def render_yaml_str(v: str, style: str, in_flow: bool = False) -> Rendered:
     if style == "single":
         if _CONTROL.search(v):
             return Rendered(_json_dq(v), "double", "str", False, "indicator")
         return Rendered("'" + v.replace("'", "''") + "'", "single", "str")
     if style == "double":
         return Rendered(_json_dq(v), "double", "str")
-    reason = yaml_quote_reason(v)
+    reason = yaml_quote_reason(v, in_flow)
     if reason:
         return Rendered(_json_dq(v), "double", "str", True, reason)
     return Rendered(v, "plain", "str")
@@ -107,7 +109,7 @@ def render_yaml(node: Node, old_type: str, value: str, type_opt: str, path_text:
             inferred = _ceg_yaml.resolve12(value)[0] if node.style == "plain" else "str"
             want = inferred if inferred in ("int", "float", "bool", "null") else "str"
     if want == "str":
-        return render_yaml_str(value, node.style if node.style in ("single", "double") else "plain")
+        return render_yaml_str(value, node.style if node.style in ("single", "double") else "plain", node.in_flow)
     r = _ceg_yaml.resolve12(value)[0]
     ok = {"int": r == "int", "float": r in ("int", "float"), "bool": r == "bool", "null": r == "null"}[want]
     if want == "null" and value == "":
