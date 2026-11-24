@@ -111,3 +111,31 @@ def test_json_toml_xml_keep_their_own_rules(tmp_path):
     x = write(tmp_path, "a.xml", "<r><n>1</n></r>\n")
     assert cli("set", str(x), "r.n", "abc", "--type", "int")[0] == 2
     assert cli("set", str(x), "r.n", "abc")[0] == 0
+
+
+# ---- flow-context quoting: , [ ] { } inside one-line [..] / {..} need quotes
+
+@pytest.mark.parametrize("src,path,value,expected", [
+    ("a: [x, y]\n", "a[0]", "p]q", 'a: ["p]q", y]\n'),
+    ("a: {b: d}\n", "a.b", "e}f", 'a: {b: "e}f"}\n'),
+    ("a: {b: d}\n", "a.b", "e,f", 'a: {b: "e,f"}\n'),
+    ("a: [x, y]\n", "a[0]", "p, q", 'a: ["p, q", y]\n'),
+    ("a: [x, y]\n", "a[0]", "p[q", 'a: ["p[q", y]\n'),
+])
+@pytest.mark.parametrize("extra", [(), ("--type", "str")])
+def test_flow_context_quotes_flow_indicators(tmp_path, src, path, value, expected, extra):
+    f = write(tmp_path, "c.yaml", src)
+    code, rep, err = set_json(f, path, value, *extra)
+    assert code == 0, err
+    text = f.read_text(encoding="utf-8")
+    assert text == expected
+    assert rep["quote_added"] is True and rep["quote_reason"] == "indicator"
+    yaml = pytest.importorskip("yaml")
+    assert yaml.safe_load(text) == yaml.safe_load(expected)
+
+
+def test_block_context_keeps_plain_flow_indicators(tmp_path):
+    f = write(tmp_path, "c.yaml", "a: x\n")
+    code, rep, err = set_json(f, "a", "p]q, r")
+    assert code == 0, err
+    assert f.read_text(encoding="utf-8") == "a: p]q, r\n"
