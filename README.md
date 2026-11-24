@@ -62,7 +62,7 @@ Measured results (Claude Code, `sonnet`, 3 runs per case):
 | Stays quiet when it should not | 11/11 |
 | Tasks solved with the skill | 6/6 |
 | Tasks solved without it (baseline) | 0/6 |
-| Mean score gain (Δ) | +0.55 |
+| Mean score gain (Δ) | +0.56 |
 | Tasks that catch a broken script | 6/6 |
 | Codex CLI | not verified |
 

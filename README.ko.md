@@ -62,7 +62,7 @@ cp -r config-edit-guard/skills/config-edit-guard ~/.claude/skills/
 | 필요 없을 때 안 불림 | 11/11 |
 | 스킬로 푼 작업 | 6/6 |
 | 스킬 없이 푼 작업(기준선) | 0/6 |
-| 평균 점수 차이(Δ) | +0.55 |
+| 평균 점수 차이(Δ) | +0.56 |
 | 가짜 스크립트를 잡아낸 비율 | 6/6 |
 | Codex CLI | 미검증 |
 
